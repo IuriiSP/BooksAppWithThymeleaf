@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Жанры</title>
+    <style type="text/css">
+        TABLE {
+            width: 300px; /* Ширина таблицы */
+            border-top: 2px solid #000; /* Линия сверху таблицы */
+            border-bottom: 2px solid #000; /* Линия внизу таблицы */
+        }
+
+        TD, TH {
+            padding: 3px; /* Поля вокруг содержимого ячеек */
+        }
+
+        TH {
+            text-align: left; /* Выравнивание текста по левому краю */
+            border-bottom: 1px solid #000; /* Линия под верхним заголовком */
+        }
+    </style>
+</head>
+<body>
+<div>
+    <img th:src="@{images/book.jpg}" width="400"/>
+</div>
+<div>
+    <table cellspacing="0">
+        <tbody>
+        <tr th:if="${genres.empty}">
+            <td colspan="2"> В БД нет жанров</td>
+        </tr>
+        <tr th:each="genre : ${genres}">
+            <td><span th:text="${genre.id}"> Id </span></td>
+            <td><span th:text="${genre.genreName}"> Имя </span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <a href="/genre/new">Добавить жанр</a>
+</div>
+<div>
+    <a href="/">На главную</a>
+</div>
+</body>
+</html>

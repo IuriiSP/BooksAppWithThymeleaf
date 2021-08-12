@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление жанра</title>
+</head>
+<body>
+    <h1>Форма</h1>
+    <form th:method="POST" th:action="@{/genre/addgenre}" th:object="${genre}">
+        <p>id: <input type="text" th:field="*{id}"></p>
+        <p>Name: <input type="text" th:field="*{genreName}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>
