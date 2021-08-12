@@ -25,13 +25,13 @@ public class BookController {
     }
 
     @GetMapping
-    public String showBooksPage(Model model){
+    public String showBooksPage(Model model) {
         model.addAttribute("books", bookRepository.findAll());
         return "books/books";
     }
 
     @GetMapping("/new")
-    public String addGenre(Model model){
+    public String addGenre(Model model) {
         model.addAttribute(new Book());
         model.addAttribute("authors", authorRepository.findAll());
         model.addAttribute("genres", genreRepository.findAll());
@@ -39,19 +39,19 @@ public class BookController {
     }
 
     @PostMapping("/addbook")
-    public String addBook(@ModelAttribute("book") Book book){
+    public String addBook(@ModelAttribute("book") Book book) {
         bookRepository.save(book);
         return "redirect:/books";
     }
 
     @PostMapping("/deletebook")
-    public String removeBook(Model model){
+    public String removeBook(Model model) {
         model.addAttribute("books", bookRepository.findAll());
         return "redirect:/books";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteBook(@PathVariable("id") String id, Model model){
+    public String deleteBook(@PathVariable("id") String id, Model model) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
         bookRepository.delete(book);
