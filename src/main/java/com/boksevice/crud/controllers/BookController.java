@@ -1,5 +1,6 @@
 package com.boksevice.crud.controllers;
 
+import com.boksevice.crud.entities.Author;
 import com.boksevice.crud.entities.Book;
 import com.boksevice.crud.repo.AuthorRepository;
 import com.boksevice.crud.repo.BookRepository;
@@ -7,10 +8,7 @@ import com.boksevice.crud.repo.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/books")
 @Controller
@@ -43,6 +41,20 @@ public class BookController {
     @PostMapping("/addbook")
     public String addBook(@ModelAttribute("book") Book book){
         bookRepository.save(book);
+        return "redirect:/books";
+    }
+
+    @PostMapping("/deletebook")
+    public String removeBook(Model model){
+        model.addAttribute("books", bookRepository.findAll());
+        return "redirect:/books";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable("id") String id, Model model){
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
+        bookRepository.delete(book);
         return "redirect:/books";
     }
 }

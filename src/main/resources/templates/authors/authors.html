@@ -18,8 +18,8 @@
         </thead>
         <tbody>
         <tr th:each="author : ${authors}">
-            <td><span th:text="${author.id}"> Id </span></td>
             <td><span th:text="${author.name}"> Имя </span></td>
+            <td><a th:href="@{/authors/delete/{id}(id=${author.id})}"> Delete</a></td>
         </tr>
         </tbody>
     </table>

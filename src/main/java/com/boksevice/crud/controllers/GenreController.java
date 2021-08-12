@@ -5,10 +5,7 @@ import com.boksevice.crud.repo.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/genre")
 @Controller
@@ -35,6 +32,14 @@ public class GenreController {
     @PostMapping("/addgenre")
     public String addGenre(@ModelAttribute("genre") Genre genre) {
         genreRepository.save(genre);
+        return "redirect:/genre";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteGenre(@PathVariable("id") String id, Model model) {
+        Genre genre = genreRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid genre Id:" + id));
+        genreRepository.delete(genre);
         return "redirect:/genre";
     }
 }

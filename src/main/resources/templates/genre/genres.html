@@ -31,8 +31,8 @@
             <td colspan="2"> В БД нет жанров</td>
         </tr>
         <tr th:each="genre : ${genres}">
-            <td><span th:text="${genre.id}"> Id </span></td>
             <td><span th:text="${genre.genreName}"> Имя </span></td>
+            <td><a th:href="@{/genre/delete/{id}(id=${genre.id})}">Delete</a></td>
         </tr>
         </tbody>
     </table>

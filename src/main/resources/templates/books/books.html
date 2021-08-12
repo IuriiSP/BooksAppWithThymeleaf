@@ -12,7 +12,6 @@
     <table>
         <thead>
         <tr>
-            <th>id</th>
             <th>name</th>
             <th>year of publishing</th>
             <th>Author</th>
@@ -21,16 +20,16 @@
         </thead>
         <tbody>
         <tr th:each="book : ${books}">
-            <td><span th:text="${book.id}">Id</span></td>
             <td><span th:text="${book.name}">Name</span></td>
             <td><span th:text="${book.yearOfPublishing}">year of publishing</span></td>
             <td><span th:text="${book.author.name}">author</span></td>
             <td><span th:text="${book.genre.genreName}">genre</span></td>
+            <td><a th:href="@{/books/delete/{id}(id=${book.id})}"> Delete</a></td>
         </tr>
         </tbody>
     </table>
 </div>
-    <div>
+        <div>
         <a href="/books/new">Добавить книгу</a>
         <a href="/">На главную</a>
     </div>
