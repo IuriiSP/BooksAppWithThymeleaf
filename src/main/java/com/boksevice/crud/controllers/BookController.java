@@ -8,7 +8,10 @@ import com.boksevice.crud.repo.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RequestMapping("/books")
 @Controller
@@ -39,7 +42,10 @@ public class BookController {
     }
 
     @PostMapping("/addbook")
-    public String addBook(@ModelAttribute("book") Book book) {
+    public String addBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "books/new";
+        }
         bookRepository.save(book);
         return "redirect:/books";
     }

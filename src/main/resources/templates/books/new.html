@@ -8,7 +8,9 @@
 <h1>Добавить книгу</h1>
 <form action="#" th:action="@{/books/addbook}" th:object="${book}" method="post">
     <p>Name: <input type="text" th:field="*{name}" /></p>
-    <p>year Of Publishing: <input type="text" th:field="*{yearOfPublishing}" /></p>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    <p>year Of Publishing: <input type="number" th:field="*{yearOfPublishing}" /></p>
+    <div style="color:red" th:if="${#fields.hasErrors('yearOfPublishing')}" th:errors="*{yearOfPublishing}">Name Error</div>
     <p>Автор:
         <select name="author">
             <option>Выберите автора</option>
@@ -18,6 +20,7 @@
             </option>
         </select>
     </p>
+    <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Name Error</div>
     <p>Жанр: <select name="genre">
         <option>Выберие жанр</option>
         <option th:each="genre : ${genres}"
@@ -26,6 +29,7 @@
         </option>
     </select>
     </p>
+    <div style="color:red" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}">Name Error</div>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 </body>

@@ -5,7 +5,10 @@ import com.boksevice.crud.repo.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/authors")
@@ -29,7 +32,10 @@ public class AuthorController {
     }
 
     @PostMapping("/addauthor")
-    public String addAuthor(@ModelAttribute("author") Author author) {
+    public String addAuthor(@ModelAttribute("author") @Valid Author author, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "authors/new";
+        }
         authorRepository.save(author);
         return "redirect:/authors";
     }

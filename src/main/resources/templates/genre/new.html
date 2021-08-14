@@ -7,7 +7,8 @@
 <body>
     <h1>Форма</h1>
     <form th:method="POST" th:action="@{/genre/addgenre}" th:object="${genre}">
-        <p>Name: <input type="text" th:field="*{genreName}" /></p>
+        <p>Name: <input type="text" th:field="*{genreName}"/></p>
+        <div style="color:red" th:if="${#fields.hasErrors('genreName')}" th:errors="*{genreName}">Name Error</div>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 </body>

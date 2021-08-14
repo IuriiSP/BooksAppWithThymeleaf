@@ -5,7 +5,10 @@ import com.boksevice.crud.repo.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RequestMapping("/genre")
 @Controller
@@ -30,7 +33,10 @@ public class GenreController {
     }
 
     @PostMapping("/addgenre")
-    public String addGenre(@ModelAttribute("genre") Genre genre) {
+    public String addGenre(@ModelAttribute("genre") @Valid Genre genre, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "genre/new";
+        }
         genreRepository.save(genre);
         return "redirect:/genre";
     }
